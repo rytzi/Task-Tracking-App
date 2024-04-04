@@ -1,0 +1,38 @@
+
+
+.loginScreen {
+    display: flex;
+    text-align: center;
+}
+
+.greeting {
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transition: all 0.5s linear;
+}
+
+.login {
+    right: 0;
+    border-start-start-radius: 150px;
+    border-end-start-radius: 150px;
+}
+
+.signup {
+    right: 50%;
+    border-end-end-radius: 150px;
+    border-start-end-radius: 150px;
+}
+
+.loginForm {
+    height: 100%;
+    flex: 1;
+}
+
+.signupForm {
+    height: 100%;
+    flex: 1;
+}
