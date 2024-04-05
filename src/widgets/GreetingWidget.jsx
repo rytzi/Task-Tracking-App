@@ -5,24 +5,24 @@ import { useEffect } from 'react';
 
 export const GreetingWidget = ({mode, setMode}) => {
     var greeting, description, question, button, action;
-    // useEffect(() => {
-    //     switch (mode) {
-    //         case "login":
-    //             greeting = "Welcome Back!";
-    //             description = "Great to see you again! Log in to manage your tasks.";
-    //             question = "Don't have an account?";
-    //             button = "Sign Up";
-    //             action = "signup";
-    //             break;
-    //         case "signup":
-    //             greeting = "Hi there!";
-    //             description = "Lets create your account to start tracking tasks.";
-    //             question = "Already have an account?";
-    //             button = "Log In";
-    //             action = "login";
-    //             break;
-    //     }
-    // }, [mode])
+    useEffect(() => {
+        switch (mode) {
+            case "login":
+                greeting = "Welcome Back!";
+                description = "Great to see you again! Log in to manage your tasks.";
+                question = "Don't have an account?";
+                button = "Sign Up";
+                action = "signup";
+                break;
+            case "signup":
+                greeting = "Hi there!";
+                description = "Lets create your account to start tracking tasks.";
+                question = "Already have an account?";
+                button = "Log In";
+                action = "login";
+                break;
+        }
+    }, [mode])
     greeting = "Hi there!";
                 description = "Lets create your account to start tracking tasks.";
                 question = "Already have an account?";
