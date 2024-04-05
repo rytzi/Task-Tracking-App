@@ -6,7 +6,6 @@ import "../Login.css"
 
 function LoginScreen() {
   const [mode, setMode] = useState("login");
-//TODO: USE UseContext 
   return (
     <div className="loginScreen">
     <LoginWidget mode={mode}/>
