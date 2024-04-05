@@ -88,3 +88,7 @@
 .password {
     -webkit-text-security: disc;
 }
+
+.question {
+    padding-top: 5rem;
+}
