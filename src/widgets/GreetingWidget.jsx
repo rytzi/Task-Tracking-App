@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react';
 
+// merge conflict
+
 export const GreetingWidget = ({mode, setMode}) => {
     var greeting, description, question, button, action;
     useEffect(() => {
