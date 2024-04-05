@@ -35,10 +35,10 @@ export const GreetingWidget = ({ mode, setMode }) => {
 
     return (
         <div className={"centerY greeting " + mode}>
-            <div className='title text'>{greeting}</div>
-            <div className='subtitle text'>{description}</div>
-            <div className='text'>{question}</div>
-            <div className='text button' onClick={handleButtonClick}>{button}</div>
+                <div className='title text'>{greeting}</div>
+                <div className='subtitle text'>{description}</div>
+                <div className='text question'>{question}</div>
+                <div className='text button' onClick={handleButtonClick}>{button}</div>
         </div>
     );
 };
