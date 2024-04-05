@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+.centerY {
+    display: flex;
+    align-items: center;
+}
+
 .greeting {
     z-index: 1;
     position: absolute;
@@ -13,6 +18,10 @@
     background-color: var(--secondary-color);
     color: var(--primary-color);
     transition: all 0.5s linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5em;
 }
 
 .login {
@@ -30,9 +39,52 @@
 .loginForm {
     height: 100%;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .signupForm {
     height: 100%;
     flex: 1;
+}
+
+.form {
+    height: 30%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.roleSelect {
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.roleOptions{
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 6rem;
+}
+
+.role {
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+
+.label {
+    opacity: 50%;
+    text-align: start;
+    padding-top: 1rem;
+}
+
+.password {
+    -webkit-text-security: disc;
 }
