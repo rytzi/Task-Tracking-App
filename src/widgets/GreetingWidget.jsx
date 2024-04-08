@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 export const GreetingWidget = ({ mode, setMode }) => {
+    //TODO: IMPLEMENT USECONTEXT/USEREF
     const [greeting, setGreeting] = useState("");
     const [description, setDescription] = useState("");
     const [question, setQuestion] = useState("");

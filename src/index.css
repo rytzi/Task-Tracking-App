@@ -14,6 +14,7 @@
 }
 
 svg, .text {
+  cursor: default;
   height: fit-content;
 }
 

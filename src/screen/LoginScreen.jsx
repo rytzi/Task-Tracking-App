@@ -10,7 +10,9 @@ function LoginScreen() {
     <div className="loginScreen">
     <LoginWidget mode={mode}/>
     <GreetingWidget mode={mode} setMode={setMode}/>
-    <SignupWidget mode={mode}/>
+    <div className="signupForm centerY">
+      <SignupWidget mode={mode}/>
+    </div>
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
-export const Card = ({ className, cardHeight, cardWidth, content, onHover, onClick }) => {
+export const Card = ({ className, cardHeight, cardWidth, content, onClick}) => {
     return (
-        <div className={"role card " + className} style={{height: cardHeight, width: cardWidth}} onMouseEnter={onHover} onClick={onClick}>
+        <div className={"role card " + className} style={{height: cardHeight, width: cardWidth}} onClick={onClick}>
             {content}
         </div>
     );
