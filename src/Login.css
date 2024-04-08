@@ -1,13 +1,6 @@
-
-
 .loginScreen {
     display: flex;
     text-align: center;
-}
-
-.centerY {
-    display: flex;
-    align-items: center;
 }
 
 .greeting {

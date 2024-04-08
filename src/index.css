@@ -63,3 +63,9 @@ svg, .text {
   display: inline-grid;
   align-items: center;
 }
+
+.centerY {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
