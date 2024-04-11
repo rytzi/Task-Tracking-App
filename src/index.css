@@ -3,6 +3,7 @@
   --secondary-color: #21293C;
   --tertiary-color: #33ADD1;
   margin: 0;
+  font-family: 'DM Sans', 'Exalted', 'Protofo', sans-serif;
 }
 
 * {
@@ -25,7 +26,8 @@ svg, .text {
   border-radius: 5px;
   padding: 1rem;
   margin: 1rem;
-  width: 10%;
+  min-width: fit-content;
+  max-width: 10%;
   cursor: pointer;
   &:hover{
     border: 1px solid var(--secondary-color);

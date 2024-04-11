@@ -2,6 +2,7 @@
     display: flex;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -60,4 +61,88 @@
     font-size: larger;
     align-self: center;
     margin-left: 1rem;
+}
+
+.logo { 
+    margin: auto;
+}
+
+.logoContainer {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.selected {
+    margin: 2rem;
+    width: -webkit-fill-available;
+}
+
+.cards {
+    box-sizing: border-box;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addNewTask {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dashboardCards {  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.band {
+    font-style: italic;
+    color: #21293C;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    height:10%;
+    width:100%;
+    padding:.5rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+}
+
+.number {
+    font-size: 70px;
+    font-weight: bold;
+    flex: 7;
+}
+
+.and {
+    display: flex;
+    align-items: center;
+}
+
+.illus {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.iconContainer {
+    padding: 1rem;
+    border-radius: 5px;
+    height: auto;
+    flex: 1;
+}
+
+.dashboardContainer {
+    display: flex;
+    height: 85%;
+    flex-direction: column;
+    justify-content: space-between;
 }

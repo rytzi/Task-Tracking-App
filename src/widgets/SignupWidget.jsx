@@ -53,14 +53,14 @@ const RoleSelect = () => {
             <div className="title text">Select Your Role</div>
             <div className="roleOptions">
                 <Card 
-                    className="assigner"
+                    className="assigner role"
                     cardHeight="110%"
                     cardWidth="30%"
                     content={AssignerCardContent}
                     onClick={handleAssignerClick}
                 />
                 <Card 
-                    className="assignee"
+                    className="assignee role"
                     cardHeight="110%"
                     cardWidth="30%"
                     content={AssigneeCardContent}
