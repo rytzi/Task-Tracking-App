@@ -40,11 +40,14 @@
     width: 100%;
     height: auto;
     padding: 1rem;
+    padding-left: 2rem;
+    margin-bottom: .5rem;
     box-sizing: border-box;
     border-radius: 30px;
     &:hover{
         background-color: var(--primary-color);
         color: var(--secondary-color);
+        --logo-color: #21293C;
     }
 }
 
@@ -193,7 +196,7 @@ td {
     border-color: rgba(246, 145, 52, 1);
 }
 
-.Complete {
+.Completed {
     background-color: rgba(100, 218, 105, 0.5);
     border-color: rgba(100, 218, 105, 1);
 }

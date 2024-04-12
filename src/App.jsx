@@ -4,13 +4,14 @@ import { Body } from './screen/Body.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState('');
 
   return (
     <>
       {isAuthenticated ? (
-        <Body setIsAuthenticated={setIsAuthenticated} />
+        <Body setIsAuthenticated={setIsAuthenticated} user={user}/>
       ) : (
-        <LoginScreen setIsAuthenticated={setIsAuthenticated} />
+        <LoginScreen setIsAuthenticated={setIsAuthenticated} setUser={setUser} />
       )}
     </>
   );

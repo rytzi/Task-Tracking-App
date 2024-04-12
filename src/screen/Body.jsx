@@ -4,9 +4,9 @@ import { Dashboard, Employees, Logout, Tasks } from '../assets/Icons';
 import { DashboardWidget } from '../widgets/Dashboard';
 import taskMap from '../data/Task.json';
 import userMap from '../data/User.json'
-import '../Body.css'
+import '../style/Body.css'
 
-export const Body = ({ setIsAuthenticated }) => {
+export const Body = ({ setIsAuthenticated, user }) => {
   const [selectedBody, setSelectedBody] = useState('Dashboard');
   const handleSidebar = (selected) => {
     setSelectedBody(selected);
@@ -43,7 +43,7 @@ export const Body = ({ setIsAuthenticated }) => {
         </div>
         <div className='mainBody'>
             <div className='navbar'>
-              <div className='title text'>Welcome Back, User 🤟</div>
+              <div className='title text'>Welcome Back, {user.name} 🤟</div>
             </div>
             <div className='selected'>
               <SelectedBody select={selectedBody}/>
@@ -55,6 +55,7 @@ export const Body = ({ setIsAuthenticated }) => {
 
 Body.propTypes = {
   setIsAuthenticated: PropTypes.func,
+  user: PropTypes.object
 }
 
 

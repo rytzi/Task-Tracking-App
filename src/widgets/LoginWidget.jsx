@@ -7,7 +7,6 @@ export const LoginWidget = ({ handleLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Call handleLogin function with email and password
     handleLogin(email, password);
   };
 
@@ -20,7 +19,7 @@ export const LoginWidget = ({ handleLogin }) => {
           className="email input"
           type="text"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onInput={(e) => setEmail(e.target.value)}
           required
         />
         <div className="label text">Password</div>
@@ -28,7 +27,7 @@ export const LoginWidget = ({ handleLogin }) => {
           className="password input"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onInput={(e) => setPassword(e.target.value)}
           required
         />
         <div className="text button" type="submit" onClick={handleSubmit}>Log In</div>
@@ -36,8 +35,6 @@ export const LoginWidget = ({ handleLogin }) => {
     </div>
   );
 };
-
-// export default LoginWidget;
 
 LoginWidget.propTypes = {
   handleLogin: PropTypes.func,

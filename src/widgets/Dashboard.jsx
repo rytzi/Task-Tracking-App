@@ -52,7 +52,7 @@ export const DashboardWidget = ({tasks, users}) => {
             content={
                 <div className='dashboardCards'>
                   <div className='text and illus'>
-                    <div className='number text'>{tasks.filter(task => task.status === "Complete").length}</div>
+                    <div className='number text'>{tasks.filter(task => task.status === "Completed").length}</div>
                     <div className='iconContainer centerY' style={{backgroundColor: 'rgba(100, 218, 105, 0.5)'}}>
                       <Completed/>
                     </div>

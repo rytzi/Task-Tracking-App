@@ -1,6 +1,7 @@
-[{"task": "Buy Fruits", "assignee": "123456", "created": "22 Feb 2024 8:15am", "status": "Complete"},
-{"task": "Fix Computer", "assignee": "123457", "created": "2 Mar 2024 2:40pm", "status": "Complete"},
-{"task": "Clean Office", "assignee": "123458", "created": "15 Mar 2024 9:20am", "status": "Complete"},
-{"task": "Buy Snacks", "assignee": "123459", "created": "22 Mar 2024 11:50am", "status": "In Progress"},
+[{"task": "Buy Fruits", "assignee": "123456", "created": "22 Feb 2024 8:15am", "status": "Completed"},
+{"task": "Fix Computer", "assignee": "123457", "created": "2 Mar 2024 2:40pm", "status": "Completed"},
+{"task": "Clean Office", "assignee": "123458", "created": "15 Mar 2024 9:20am", "status": "Completed"},
+{"task": "Buy Snacks", "assignee": "123459", "created": "22 Mar 2024 11:50am", "status": "Completed"},
 {"task": "Buy Cleaning Supplies", "assignee": "123456", "created": "1 Apr 2024 9:50am", "status": "In Progress"},
-{"task": "Deliver Fruits", "assignee": "123457", "created": "2 Apr 2024 8:15am", "status": "Pending"}]
+{"task": "Deliver Fruits", "assignee": "123457", "created": "2 Apr 2024 8:15am", "status": "In Progress"},
+{"task": "Deliver Snacks", "assignee": "123456", "created": "2 Apr 2024 2:15pm", "status": "Pending"}]
