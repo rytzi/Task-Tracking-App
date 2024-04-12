@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react';
-import { Card } from "../widgets/Card"
-import { AddNewTask, Completed, Dashboard, Employees, InProgress, Logout, Pending, Tasks } from '../assets/Icons';
+import { Dashboard, Employees, Logout, Tasks } from '../assets/Icons';
+import { DashboardWidget } from '../widgets/Dashboard';
+import taskMap from '../data/Task.json';
+import userMap from '../data/User.json'
 import '../Body.css'
 
 export const Body = ({ setIsAuthenticated }) => {
@@ -9,6 +11,7 @@ export const Body = ({ setIsAuthenticated }) => {
   const handleSidebar = (selected) => {
     setSelectedBody(selected);
   }
+
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
@@ -59,67 +62,7 @@ const SelectedBody = ({select}) => {
   switch (select) {
     case 'Dashboard':
       return (
-        <div className='dashboardContainer'>
-          <div className='text'>Dashboard</div>
-          <div className='cards'>
-            <Card 
-            className='addNewTask'
-            cardWidth={"15rem"}
-            content={
-                <div className='addNewTask'>
-                  <div className='icon centerY' style={{width: '30%', padding: '2rem'}}>
-                    <AddNewTask/>
-                  </div>
-                  <div className='text option'>Add New Task</div>
-                </div>
-              }
-            />
-            <Card
-            cardWidth={"25rem"}
-            content={
-                <div className='dashboardCards'>
-                  <div className='text and illus'>
-                    <div className='number text'>12</div>
-                    <div className='iconContainer centerY' style={{backgroundColor: 'rgba(51, 173, 209, 0.5)'}}>
-                      <Pending/>
-                    </div>
-                  </div>
-                  <div className='band text' style={{backgroundColor: 'rgba(51, 173, 209, 0.5)', borderColor: 'rgba(51, 173, 209, 1)'}}>Pending Tasks</div>
-                </div>
-              }
-            />
-            <Card
-            cardWidth={"25rem"}
-            content={
-                <div className='dashboardCards'>
-                  <div className='text and illus'>
-                    <div className='number text'>10</div>
-                    <div className='iconContainer centerY' style={{backgroundColor: 'rgba(246, 145, 52, 0.5)'}}>
-                      <InProgress/>
-                    </div>
-                  </div>
-                  <div className='band text' style={{backgroundColor: 'rgba(246, 145, 52, 0.5)', borderColor: 'rgba(246, 145, 52, 1)'}}>In Progress Tasks</div>
-                </div>
-              }
-            />
-            <Card
-            cardWidth={"25rem"}
-            content={
-                <div className='dashboardCards'>
-                  <div className='text and illus'>
-                    <div className='number text'>15</div>
-                    <div className='iconContainer centerY' style={{backgroundColor: 'rgba(100, 218, 105, 0.5)'}}>
-                      <Completed/>
-                    </div>
-                  </div>
-                  <div className='band text' style={{backgroundColor: 'rgba(100, 218, 105, 0.5)', borderColor: 'rgba(100, 218, 105, 1)'}}>Pending Tasks</div>
-                </div>
-              }
-            />
-          </div>
-          <Card cardHeight={'35%'}/>
-          <Card cardHeight={'35%'}/>
-        </div>        
+        <DashboardWidget tasks={taskMap} users={userMap}/>       
       );
     case 'Tasks':
       return (
