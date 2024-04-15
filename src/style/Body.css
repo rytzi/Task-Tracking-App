@@ -310,3 +310,8 @@ input, textarea {
         color: var(--secondary-color);
     }
 }
+
+.allTask {
+    height: 85% !important;
+    overflow-y: scroll !important;
+}
