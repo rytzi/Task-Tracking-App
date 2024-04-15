@@ -301,3 +301,12 @@ input, textarea {
         opacity: 90%;
     }
 }
+
+td svg {
+    height: 15px !important;
+    cursor: pointer;
+    &:hover {
+        animation: shake .5s;
+        color: var(--secondary-color);
+    }
+}

@@ -2,9 +2,11 @@ import PropTypes from 'prop-types'
 import { useState } from 'react';
 import { Dashboard, Employees, Logout, Tasks } from '../assets/Icons';
 import { DashboardWidget } from '../widgets/Dashboard';
+import { TasksWidget } from '../widgets/Tasks';
+import { EmployeesWidget } from '../widgets/Employees';
 import taskMap from '../data/Task.json';
-import userMap from '../data/User.json'
-import '../style/Body.css'
+import userMap from '../data/User.json';
+import '../style/Body.css';
 
 export const Body = ({ setIsAuthenticated, user }) => {
   const [selectedBody, setSelectedBody] = useState('Dashboard');
@@ -67,11 +69,11 @@ const SelectedBody = ({select}) => {
       );
     case 'Tasks':
       return (
-        <h1>hello tasks</h1>
+        <TasksWidget tasks={taskMap} users={userMap}/>     
       );
     case 'Employees':
       return (
-        <h1>hello Employees</h1>
+        <EmployeesWidget tasks={taskMap} users={userMap}/>     
       );
   }
 }

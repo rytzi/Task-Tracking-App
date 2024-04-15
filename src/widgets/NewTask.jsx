@@ -3,12 +3,19 @@ import { useEffect, useState } from 'react';
 
 export const NewTaskModal = ({closeModal, tasks, users}) => {
     const [newTask, setNewTask] = useState([]);
-    const [selectedDepartment, setSelectedDepartment] = useState("");
-    const [selectedAssignee, setSelectedAssignee] = useState("");    
+    const [selectedDepartment, setSelectedDepartment] = useState("placeholder");
+    const [selectedAssignee, setSelectedAssignee] = useState("placeholder");    
     const [taskInput, setTaskInput] = useState("");
     const [descriptionInput, setDescriptionInput] = useState("");
     const [assignee, setAssignee] = useState([]);
     const [departments, setDepartments] = useState([]);
+
+    const resetState = () => {
+        setSelectedDepartment("placeholder");
+        setSelectedAssignee("placeholder");
+        setTaskInput("");
+        setDescriptionInput("");
+    }
 
     useEffect(() => {
         const departmentSet = new Set(users.map(user => user.department));
@@ -38,13 +45,13 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
             <div className="assign">
                 <div className="newTask text">
                     <div className="subtitle text fit">Create New Task</div>
-                    <div className="subtitle close text fit" onClick={closeModal}>
+                    <div className="subtitle close text fit" onClick={() => {closeModal(); resetState();}}>
                         &times;
                     </div>
                 </div>
                 <div className='select'>
                     <div className='inputLabel'>Select Department</div>
-                    <select defaultValue="placeholder" className='departmentSelect' onChange={(e) => {setSelectedDepartment(e.target.value)}}>
+                    <select value={selectedDepartment} className='departmentSelect' onChange={(e) => {setSelectedDepartment(e.target.value)}}>
                         <option value="placeholder" disabled>Select Department</option>
                         {departments.map((department, index) => (
                                     <option key={index} value={department}>{department}</option>
@@ -53,7 +60,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
                         }
                     </select>
                     <div className='inputLabel'>Select Assignee</div>
-                    <select defaultValue="placeholder" onChange={(e) => {setSelectedAssignee(e.target.value)}}>
+                    <select value={selectedAssignee} onChange={(e) => {setSelectedAssignee(e.target.value)}}>
                         <option value="placeholder" disabled>Select Assignee</option>
                         {assignee.map((assignee, index) => (
                                     <option key={index} value={assignee}>{assignee}</option>
@@ -65,12 +72,13 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
             </div>
             <div className='task'>
                 <div className='inputLabel'>Task</div>
-                <input type='text' onChange={(e) => {setTaskInput(e.target.value)}}></input>
+                <input value={taskInput} type='text' onChange={(e) => {setTaskInput(e.target.value)}}></input>
                 <div className='inputLabel'>Description</div>
-                <textarea cols="10" rows="4" onChange={(e) => {setDescriptionInput(e.target.value)}}></textarea>
+                <textarea value={descriptionInput} cols="10" rows="4" onChange={(e) => {setDescriptionInput(e.target.value)}}></textarea>
                 <div className='add text' onClick={(e) => {
                             e.preventDefault();
                             closeModal();
+                            resetState();
                             if (selectedDepartment != "placeholder" && selectedAssignee != "placeholder" && taskInput != "" && descriptionInput != "") {
                                 console.log([...tasks, newTask]);
                             } else {

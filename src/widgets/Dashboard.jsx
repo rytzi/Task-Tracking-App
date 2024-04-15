@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { Card } from "../widgets/Card"
-import { AddNewTask, Completed, InProgress, Pending} from '../assets/Icons';
+import { AddNewTask, Completed, InProgress, Message, Pending} from '../assets/Icons';
 import { useRef } from 'react';
 import { NewTaskModal } from './NewTask';
 
@@ -132,7 +132,7 @@ export const DashboardWidget = ({tasks, users}) => {
                     <td style={{flex: '1', textAlign: 'center'}}>
                       {tasks.filter(task => task.status === "In Progress" & task.assignee === user.id).length}
                     </td>
-                    <td style={{flex: '1', textAlign: 'center'}}>icon</td>
+                    <td style={{flex: '1', textAlign: 'center'}}><Message/></td>
                   </tr>
                 ))}
               </tbody>
