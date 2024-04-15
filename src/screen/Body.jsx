@@ -43,7 +43,7 @@ export const Body = ({ setIsAuthenticated, user }) => {
         </div>
         <div className='mainBody'>
             <div className='navbar'>
-              <div className='title text'>Welcome Back, {user.name} 🤟</div>
+              <div className='title text'>Welcome Back, {user.name.split(" ")[0]} 🤟</div>
             </div>
             <div className='selected'>
               <SelectedBody select={selectedBody}/>
