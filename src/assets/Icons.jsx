@@ -68,7 +68,7 @@ export const Completed = () => {
 
 export const Message = () => {
     return(
-        <svg width="auto" height="inherit" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="messageIcon" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path opacity="0.75" d="M22 0H9C7.9 0 7 0.9 7 2V11C7 11.5304 7.21071 12.0391 7.58579 12.4142C7.96086 12.7893 8.46957 13 9 13H22C23.11 13 24 12.11 24 11V2C24 1.46957 23.7893 0.960859 23.4142 0.585786C23.0391 0.210714 22.5304 0 22 0ZM22 11H9V3.67L15.5 7L22 3.67V11ZM15.5 5.31L9 2H22L15.5 5.31ZM5 11C5 11.17 5.03 11.33 5.05 11.5H1C0.448 11.5 0 11.05 0 10.5C0 9.95 0.448 9.5 1 9.5H5V11ZM3 1.5H5.05C5.03 1.67 5 1.83 5 2V3.5H3C2.45 3.5 2 3.05 2 2.5C2 1.95 2.45 1.5 3 1.5ZM1 6.5C1 5.95 1.45 5.5 2 5.5H5V7.5H2C1.45 7.5 1 7.05 1 6.5Z" fill="black"/>
         </svg>
     )

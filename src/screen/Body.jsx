@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react';
 import { Dashboard, Employees, Logout, Tasks } from '../assets/Icons';
 import { DashboardWidget } from '../widgets/Dashboard';
-import { TasksWidget } from '../widgets/Tasks';
+import { AllTasksWidget, MyTasksWidget } from '../widgets/Tasks';
 import { EmployeesWidget } from '../widgets/Employees';
 import taskMap from '../data/Task.json';
 import userMap from '../data/User.json';
@@ -29,10 +29,14 @@ export const Body = ({ setIsAuthenticated, user }) => {
                 <div className='icon'><Dashboard/></div>
                 <div className='text option'>Dashboard</div>
             </div>
-            <div className='options' onClick={() => handleSidebar('Tasks')}>
+            <div className='options' onClick={() => handleSidebar('AllTasks')}>
                 <div className='icon'><Tasks/></div>
                 <div className='text option'>Tasks</div>
             </div>
+            {/* <div className='options' onClick={() => handleSidebar('MyTasks')}>
+                <div className='icon'><Tasks/></div>
+                <div className='text option'>My Tasks</div>
+            </div> */}
             <div className='options' onClick={() => handleSidebar('Employees')}>
                 <div className='icon'><Employees/></div>
                 <div className='text option'>Employees</div>
@@ -48,7 +52,7 @@ export const Body = ({ setIsAuthenticated, user }) => {
               <div className='title text'>Welcome Back, {user.name.split(" ")[0]} 🤟</div>
             </div>
             <div className='selected'>
-              <SelectedBody select={selectedBody}/>
+              <SelectedBody select={selectedBody} user={user}/>
             </div>
         </div>
     </div>
@@ -61,15 +65,19 @@ Body.propTypes = {
 }
 
 
-const SelectedBody = ({select}) => {
+const SelectedBody = ({select, user}) => {
   switch (select) {
     case 'Dashboard':
       return (
         <DashboardWidget tasks={taskMap} users={userMap}/>       
       );
-    case 'Tasks':
+    case 'AllTasks':
       return (
-        <TasksWidget tasks={taskMap} users={userMap}/>     
+        <AllTasksWidget tasks={taskMap} users={userMap}/>     
+      );
+    case 'MyTasks':
+      return (
+        <MyTasksWidget tasks={taskMap} users={userMap} user={user}/>     
       );
     case 'Employees':
       return (
@@ -81,4 +89,5 @@ const SelectedBody = ({select}) => {
   
 SelectedBody.propTypes = {
   select: PropTypes.string,
+  user: PropTypes.object
 }

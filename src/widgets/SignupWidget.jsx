@@ -11,8 +11,6 @@ export const SignupWidget = () => {
         setRole(selectedRole);
     }
 
-    console.log(role);
-
     switch (role) {
         case "assigner":
             return (

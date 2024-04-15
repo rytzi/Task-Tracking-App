@@ -12,6 +12,7 @@ export const EmployeesWidget = ({tasks, users}) => {
               <thead>
                 <tr>
                   <th style={{flex: '1'}}>ID No.</th>
+                  <th style={{flex: '1'}}>Role</th>
                   <th style={{flex: '2'}}>Name</th>
                   <th style={{flex: '2'}}>Email Address</th>
                   <th style={{flex: '1'}}>Department</th>
@@ -23,6 +24,7 @@ export const EmployeesWidget = ({tasks, users}) => {
                 {users.map((user, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{user.id}</td>
+                    <td style={{flex: '1'}}>{user.role}</td>
                     <td style={{flex: '2'}}>{user.name}</td>
                     <td style={{flex: '2'}}>{user.email}</td>
                     <td style={{flex: '1'}}>{user.department}</td>

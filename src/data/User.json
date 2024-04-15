@@ -1,4 +1,4 @@
-[{"id": "123456", "name": "Kyle Atuel", "email": "kyleAtuel@gmail.com", "password": "test123", "department": "R&D"},
-{"id": "123457", "name": "Neil Pagara", "email": "neilPagara@gmail.com", "password": "test123", "department": "Shared Services"},
-{"id": "123458", "name": "Christian Flores", "email": "christianFlores@gmail.com", "password": "test123", "department": "Intern"},
-{"id": "123459", "name": "Claudio Daruca", "email": "claudioDaruca@gmail.com", "password": "test123", "department": "SRE"}]
+[{"id": "123456", "role":"Assignee", "name": "Kyle Atuel", "email": "kyleAtuel@gmail.com", "password": "test123", "department": "R&D"},
+{"id": "123457", "role":"Assignee", "name": "Neil Pagara", "email": "neilPagara@gmail.com", "password": "test123", "department": "Shared Services"},
+{"id": "123458", "role":"Assignee", "name": "Christian Flores", "email": "christianFlores@gmail.com", "password": "test123", "department": "Intern"},
+{"id": "123459", "role":"Assignee", "name": "Claudio Daruca", "email": "claudioDaruca@gmail.com", "password": "test123", "department": "SRE"}]

@@ -123,7 +123,7 @@ export const DashboardWidget = ({tasks, users}) => {
                 </tr>
               </thead>
               <tbody>
-                {users.slice(-4).reverse().map((user, index) => (
+                {users.filter((user) => user.role === "Assignee").slice(-4).reverse().map((user, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{index+1}</td>
                     <td style={{flex: '2'}}>{user.name}</td>

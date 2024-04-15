@@ -302,7 +302,7 @@ input, textarea {
     }
 }
 
-td svg {
+.messageIcon {
     height: 15px !important;
     cursor: pointer;
     &:hover {
