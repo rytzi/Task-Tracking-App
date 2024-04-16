@@ -24,7 +24,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
     }, [users]);
 
     useEffect(() => {
-        const assigneeSet = users.filter(user => user.department === selectedDepartment);
+        const assigneeSet = users.filter(user => user.role === 'Assignee' && user.department === selectedDepartment);
         const assigneeArray = assigneeSet.map(assignee => assignee.name)
         setAssignee(assigneeArray);
     }, [selectedDepartment, users]);
@@ -35,7 +35,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
             details:  descriptionInput,
             assignee: selectedAssignee,
             department: selectedDepartment,
-            created: new Date().toLocaleString(),
+            created: new Date().toLocaleString('en-SG', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}),
             status: "Pending"
         });
     }, [taskInput, descriptionInput, selectedAssignee, selectedDepartment]);
@@ -82,7 +82,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
                             if (selectedDepartment != "placeholder" && selectedAssignee != "placeholder" && taskInput != "" && descriptionInput != "") {
                                 console.log([...tasks, newTask]);
                             } else {
-                                console.log("kulang input");
+                                console.log("invalid input");
                             }
                         }
                     }>Add Task</div>

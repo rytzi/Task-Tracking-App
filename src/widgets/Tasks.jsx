@@ -89,7 +89,7 @@ MyTasksWidget.propTypes = {
   user: PropTypes.object
 };
 
-export const PendingTasksWidget = ({tasks, user}) => {
+export const PendingTasksWidget = ({tasks, users, user}) => {
   const myTasks = tasks.filter((task) => (task.assignee === user.id && task.status === "Pending"));
   return(
     <div className='tasksContainer'>
@@ -103,7 +103,7 @@ export const PendingTasksWidget = ({tasks, user}) => {
                 <th style={{flex: '2'}}>Task</th>
                 <th style={{flex: '4'}}>Details</th>
                 <th style={{flex: '2'}}>Date Created</th>
-                <th style={{flex: '2', textAlign: 'center'}}>Status</th>
+                <th style={{flex: '2'}}>Assigner</th>
                 <th style={{flex: '2', textAlign: 'center'}}>Action</th>
               </tr>
             </thead>
@@ -114,11 +114,11 @@ export const PendingTasksWidget = ({tasks, user}) => {
                   <td style={{flex: '2'}}>{task.task}</td>
                   <td style={{flex: '4'}}>{task.details}</td>
                   <td style={{flex: '2'}}>{task.created}</td>
-                  <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
-                    <div className={task.status + ' status'}>{task.status}</div>
+                  <td style={{flex: '2'}}>{users.find(user => user.id === task.assigner).name}</td>
+                  <td style={{display: 'flex', justifyContent: 'space-around', flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
+                    <div className={'Accept status'}>Accept</div>
+                    <div className={'Decline status'}>Decline</div>
                   </td>
-                  <td style={{flex: '1', textAlign: 'center'}}>Accept</td>
-                  <td style={{flex: '1', textAlign: 'center'}}>Decline</td>
                 </tr>
               ))}
             </tbody>
@@ -131,5 +131,6 @@ export const PendingTasksWidget = ({tasks, user}) => {
 
 PendingTasksWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
+  users: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.object
 };

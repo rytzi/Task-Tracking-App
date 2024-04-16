@@ -204,6 +204,20 @@ td {
     border-color: rgba(100, 218, 105, 1);
 }
 
+.Accept {
+    font-weight: bold;
+    background-color: rgba(37, 218, 46, 0.5);
+    border-color: rgba(37, 218, 46, 1);
+    width: 100%;
+}
+
+.Decline {
+    font-weight: bold;
+    background-color: rgba(218, 100, 100, 0.5);
+    border-color: rgb(218, 100, 100);
+    width: 100%;
+}
+
 .overlay {
   height: 100%;
   width: 100%;
