@@ -3,10 +3,9 @@ import { LoginWidget } from '../widgets/LoginWidget';
 import { GreetingWidget } from '../widgets/GreetingWidget';
 import { SignupWidget } from '../widgets/SignupWidget';
 import PropTypes from 'prop-types'
-import users from '../data/User.json'
 import '../style/Login.css';
 
-export const LoginScreen = ({ setIsAuthenticated, setUser }) => {
+export const LoginScreen = ({ setIsAuthenticated, setUser, users}) => {
   const [mode, setMode] = useState('login');
 
   const handleLogin = (email, password) => {
@@ -31,5 +30,6 @@ export const LoginScreen = ({ setIsAuthenticated, setUser }) => {
 
 LoginScreen.propTypes = {
   setIsAuthenticated: PropTypes.func,
-  setUser: PropTypes.func
+  setUser: PropTypes.func,
+  users: PropTypes.arrayOf(PropTypes.object)
 }

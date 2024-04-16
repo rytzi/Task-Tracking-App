@@ -4,11 +4,9 @@ import { Dashboard, Employees, Logout, PendingTasks, Tasks } from '../assets/Ico
 import { DashboardWidget } from '../widgets/Dashboard';
 import { AllTasksWidget, MyTasksWidget, PendingTasksWidget } from '../widgets/Tasks';
 import { EmployeesWidget } from '../widgets/Employees';
-import taskMap from '../data/Task.json';
-import userMap from '../data/User.json';
 import '../style/Body.css';
 
-export const Body = ({ setIsAuthenticated, user }) => {
+export const Body = ({ setIsAuthenticated, user, users, tasks, updateTasksData}) => {
   const [selectedBody, setSelectedBody] = useState('Dashboard');
   const handleSidebar = (selected) => {
     setSelectedBody(selected);
@@ -64,7 +62,7 @@ export const Body = ({ setIsAuthenticated, user }) => {
               <div className='title text'>Welcome Back, {user.name.split(" ")[0]} 🤟</div>
             </div>
             <div className='selected'>
-              <SelectedBody select={selectedBody} user={user}/>
+              <SelectedBody select={selectedBody} user={user} users={users} tasks={tasks} updateTasksData={updateTasksData}/>
             </div>
         </div>
     </div>
@@ -73,31 +71,34 @@ export const Body = ({ setIsAuthenticated, user }) => {
 
 Body.propTypes = {
   setIsAuthenticated: PropTypes.func,
-  user: PropTypes.object
+  user: PropTypes.object,
+  users: PropTypes.arrayOf(PropTypes.object),
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  updateTasksData: PropTypes.func
 }
 
 
-const SelectedBody = ({select, user}) => {
+const SelectedBody = ({select, user, users, tasks, updateTasksData}) => {
   switch (select) {
     case 'Dashboard':
       return (
-        <DashboardWidget tasks={taskMap} users={userMap} user={user}/>       
+        <DashboardWidget tasks={tasks} users={users} user={user} updateTasksData={updateTasksData}/>       
       );
     case 'AllTasks':
       return (
-        <AllTasksWidget tasks={taskMap} users={userMap} user={user}/>     
+        <AllTasksWidget tasks={tasks} users={users} user={user}/>     
       );
     case 'MyTasks':
       return (
-        <MyTasksWidget tasks={taskMap} users={userMap} user={user}/>     
+        <MyTasksWidget tasks={tasks} users={users} user={user}/>     
       );
     case 'PendingTasks':
       return (
-        <PendingTasksWidget tasks={taskMap} users={userMap} user={user}/>     
+        <PendingTasksWidget tasks={tasks} users={users} user={user}/>     
       );
     case 'Employees':
       return (
-        <EmployeesWidget tasks={taskMap} users={userMap}/>     
+        <EmployeesWidget tasks={tasks} users={users} user={user}/>     
       );
   }
 }
@@ -105,5 +106,8 @@ const SelectedBody = ({select, user}) => {
   
 SelectedBody.propTypes = {
   select: PropTypes.string,
-  user: PropTypes.object
+  user: PropTypes.object,
+  users: PropTypes.arrayOf(PropTypes.object),
+  tasks: PropTypes.arrayOf(PropTypes.object),
+  updateTasksData: PropTypes.func
 }

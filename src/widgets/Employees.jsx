@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Card } from "../widgets/Card"
 import { Message } from '../assets/Icons';
 
-export const EmployeesWidget = ({tasks, users}) => {
+export const EmployeesWidget = ({tasks, users, user}) => {
     return(
       <div className='Employees Container'>
         <div className='subtitle text'>Employees</div>
@@ -21,7 +21,7 @@ export const EmployeesWidget = ({tasks, users}) => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, index) => (
+                {users.filter((employee) => employee.id != user.id).map((user, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{user.id}</td>
                     <td style={{flex: '1'}}>{user.role}</td>
@@ -44,5 +44,6 @@ export const EmployeesWidget = ({tasks, users}) => {
 
 EmployeesWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
-  users: PropTypes.arrayOf(PropTypes.object)
+  users: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.object
 };

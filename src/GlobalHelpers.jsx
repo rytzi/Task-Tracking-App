@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export const useActiveComponent = () => {
-    const [activeComponent, setActiveComponent] = useState(null);
+export const LocalStorage = () => {
+    const [userData, setUserData] = useState(() => {
+        const userData = localStorage.getItem('userData');
+        return JSON.parse(userData);
+    });
 
-    const setActive = (component) => {
-        setActiveComponent(component);
+    const [taskData, setTaskData] = useState(() => {
+        const taskData = localStorage.getItem('taskData');
+        return JSON.parse(taskData);
+    });
+
+    const updateUsersData = (updatedData) => {
+        localStorage.setItem('userData', JSON.stringify(updatedData));
+        setUserData(updatedData);
+    };
+    
+    const updateTasksData = (updatedData) => {
+        localStorage.setItem('taskData', JSON.stringify(updatedData));
+        setTaskData(updatedData);
     };
 
-    return [activeComponent, setActive];
+    return [userData, updateUsersData, taskData, updateTasksData];
 };
-
-export const useRole = () => {
-    const [userRole, setUserRole] = useState(null);
-
-    const setRole = (role) => {
-        setUserRole(role);
-    };
-
-    return [userRole, setRole]
-}

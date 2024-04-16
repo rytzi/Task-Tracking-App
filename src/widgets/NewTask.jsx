@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react';
 
-export const NewTaskModal = ({closeModal, tasks, users}) => {
+export const NewTaskModal = ({closeModal, tasks, users, user, updateTasksData}) => {
     const [newTask, setNewTask] = useState([]);
     const [selectedDepartment, setSelectedDepartment] = useState("placeholder");
     const [selectedAssignee, setSelectedAssignee] = useState("placeholder");    
@@ -33,12 +33,12 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
         setNewTask({
             task: taskInput,
             details:  descriptionInput,
-            assignee: selectedAssignee,
-            department: selectedDepartment,
+            assignee: users.find(user => user.name === selectedAssignee)?.id,
+            assigner: user.id,
             created: new Date().toLocaleString('en-SG', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true}),
             status: "Pending"
         });
-    }, [taskInput, descriptionInput, selectedAssignee, selectedDepartment]);
+    }, [taskInput, descriptionInput, selectedAssignee, selectedDepartment, users, user.id]);
 
     return(
         <div className="modal">
@@ -80,7 +80,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
                             closeModal();
                             resetState();
                             if (selectedDepartment != "placeholder" && selectedAssignee != "placeholder" && taskInput != "" && descriptionInput != "") {
-                                console.log([...tasks, newTask]);
+                                updateTasksData([...tasks, newTask]);
                             } else {
                                 console.log("invalid input");
                             }
@@ -94,5 +94,7 @@ export const NewTaskModal = ({closeModal, tasks, users}) => {
 NewTaskModal.propTypes = {
   closeModal: PropTypes.func,
   tasks: PropTypes.arrayOf(PropTypes.object),
-  users: PropTypes.arrayOf(PropTypes.object)
+  users: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.object,
+  updateTasksData: PropTypes.func
 };

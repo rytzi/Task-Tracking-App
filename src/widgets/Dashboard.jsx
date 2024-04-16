@@ -4,7 +4,7 @@ import { AddNewTask, Completed, InProgress, Message, Pending} from '../assets/Ic
 import { useRef } from 'react';
 import { NewTaskModal } from './NewTask';
 
-export const DashboardWidget = ({tasks, users, user}) => {
+export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
     const modalRef = useRef();
 
     const openModal = () => {
@@ -38,7 +38,7 @@ export const DashboardWidget = ({tasks, users, user}) => {
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
-                  <div className='number text'>{tasks.filter(task => task.status === "Pending").length}</div>
+                  <div className='number text'>{tasks.filter(task => (task.assignee == user.id || task.assigner == user.id) && task.status === "Pending").length}</div>
                   <div className='iconContainer centerY' style={{backgroundColor: 'rgba(51, 173, 209, 0.5)'}}>
                     <Pending/>
                   </div>
@@ -51,7 +51,7 @@ export const DashboardWidget = ({tasks, users, user}) => {
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
-                  <div className='number text'>{tasks.filter(task => task.status === "In Progress").length}</div>
+                  <div className='number text'>{tasks.filter(task => (task.assignee == user.id || task.assigner == user.id) && task.status === "In Progress").length}</div>
                   <div className='iconContainer centerY' style={{backgroundColor: 'rgba(246, 145, 52, 0.5)'}}>
                     <InProgress/>
                   </div>
@@ -64,7 +64,7 @@ export const DashboardWidget = ({tasks, users, user}) => {
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
-                  <div className='number text'>{tasks.filter(task => task.status === "Completed").length}</div>
+                  <div className='number text'>{tasks.filter(task => (task.assignee == user.id || task.assigner == user.id) && task.status === "Completed").length}</div>
                   <div className='iconContainer centerY' style={{backgroundColor: 'rgba(100, 218, 105, 0.5)'}}>
                     <Completed/>
                   </div>
@@ -91,7 +91,7 @@ export const DashboardWidget = ({tasks, users, user}) => {
                 </tr>
               </thead>
               <tbody>
-                {tasks.slice(-4).reverse().map((task, index) => (
+                {tasks.filter((task) => task.assignee == user.id || task.assigner == user.id).slice(-4).reverse().map((task, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{index+1}</td>
                     <td style={{flex: '2'}}>{task.task}</td>
@@ -154,18 +154,18 @@ export const DashboardWidget = ({tasks, users, user}) => {
                 </tr>
               </thead>
               <tbody>
-                {users.filter((user) => user.role === "Assignee").slice(-4).reverse().map((user, index) => (
+                {users.filter((assignee) => assignee.role === "Assignee").reverse().map((assignee, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{index+1}</td>
-                    <td style={{flex: '2'}}>{user.name}</td>
-                    <td style={{flex: '2'}}>{user.email}</td>
-                    <td style={{flex: '1'}}>{user.department}</td>
+                    <td style={{flex: '2'}}>{assignee.name}</td>
+                    <td style={{flex: '2'}}>{assignee.email}</td>
+                    <td style={{flex: '1'}}>{assignee.department}</td>
                     <td style={{flex: '1', textAlign: 'center'}}>
-                      {tasks.filter(task => task.status === "In Progress" & task.assignee === user.id).length}
+                      {tasks.filter(task => task.status === "In Progress" && task.assignee === assignee.id && task.assigner === user.id).length}
                     </td>
                     <td style={{flex: '1', textAlign: 'center'}}><Message/></td>
                   </tr>
-                ))}
+                )).slice(-4)}
               </tbody>
             </table>
           </div>) : (
@@ -200,7 +200,7 @@ export const DashboardWidget = ({tasks, users, user}) => {
           </div>)
         }/>
         <div ref={modalRef} className='overlay centerY' style={{display: "none"}}>
-            <NewTaskModal closeModal={closeModal} tasks={tasks} users={users}/>
+            <NewTaskModal closeModal={closeModal} tasks={tasks} users={users} user={user} updateTasksData={updateTasksData}/>
         </div>
       </div>
     )
@@ -209,5 +209,6 @@ export const DashboardWidget = ({tasks, users, user}) => {
 DashboardWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
   users: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.object
+  user: PropTypes.object,
+  updateTasksData: PropTypes.func
 };
