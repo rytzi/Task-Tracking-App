@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Card } from "./Card"
 
-export const AllTasksWidget = ({tasks, users}) => {
+export const AllTasksWidget = ({tasks, users, user}) => {
     return(
       <div className='tasksContainer'>
         <div className='subtitle text'>All Tasks</div>
@@ -20,7 +20,7 @@ export const AllTasksWidget = ({tasks, users}) => {
                 </tr>
               </thead>
               <tbody>
-                {tasks.reverse().map((task, index) => (
+                {tasks.filter((task) => task.assigner === user.id).reverse().map((task, index) => (
                   <tr key={index}>
                     <td style={{flex: '1'}}>{index+1}</td>
                     <td style={{flex: '2'}}>{task.task}</td>
@@ -43,7 +43,8 @@ export const AllTasksWidget = ({tasks, users}) => {
 
 AllTasksWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
-  users: PropTypes.arrayOf(PropTypes.object)
+  users: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.object
 };
 
 export const MyTasksWidget = ({tasks, user}) => {
@@ -103,6 +104,7 @@ export const PendingTasksWidget = ({tasks, user}) => {
                 <th style={{flex: '4'}}>Details</th>
                 <th style={{flex: '2'}}>Date Created</th>
                 <th style={{flex: '2', textAlign: 'center'}}>Status</th>
+                <th style={{flex: '2', textAlign: 'center'}}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -115,6 +117,8 @@ export const PendingTasksWidget = ({tasks, user}) => {
                   <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
                     <div className={task.status + ' status'}>{task.status}</div>
                   </td>
+                  <td style={{flex: '1', textAlign: 'center'}}>Accept</td>
+                  <td style={{flex: '1', textAlign: 'center'}}>Decline</td>
                 </tr>
               ))}
             </tbody>

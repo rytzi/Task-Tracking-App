@@ -4,7 +4,7 @@ import { AddNewTask, Completed, InProgress, Message, Pending} from '../assets/Ic
 import { useRef } from 'react';
 import { NewTaskModal } from './NewTask';
 
-export const DashboardWidget = ({tasks, users}) => {
+export const DashboardWidget = ({tasks, users, user}) => {
     const modalRef = useRef();
 
     const openModal = () => {
@@ -19,21 +19,22 @@ export const DashboardWidget = ({tasks, users}) => {
       <div className='dashboardContainer'>
         <div className='subtitle text'>Dashboard</div>
         <div className='cards'>
+          {user.role === "Assigner" && (
+            <Card
+              onClick={openModal}
+              className='addNewTask'
+              cardWidth={"45rem"}
+              content={
+                  <div className='addNewTask'>
+                    <div className='icon centerY' style={{width: '30%', padding: '2rem'}}>
+                      <AddNewTask/>
+                    </div>
+                    <div className='text option'>Add New Task</div>
+                  </div>
+                }
+            />)
+          }
           <Card
-          onClick={openModal}
-          className='addNewTask'
-          cardWidth={"15rem"}
-          content={
-              <div className='addNewTask'>
-                <div className='icon centerY' style={{width: '30%', padding: '2rem'}}>
-                  <AddNewTask/>
-                </div>
-                <div className='text option'>Add New Task</div>
-              </div>
-            }
-          />
-          <Card
-          cardWidth={"25rem"}
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
@@ -47,7 +48,6 @@ export const DashboardWidget = ({tasks, users}) => {
             }
           />
           <Card
-          cardWidth={"25rem"}
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
@@ -61,7 +61,6 @@ export const DashboardWidget = ({tasks, users}) => {
             }
           />
           <Card
-          cardWidth={"25rem"}
           content={
               <div className='dashboardCards'>
                 <div className='text and illus'>
@@ -75,7 +74,8 @@ export const DashboardWidget = ({tasks, users}) => {
             }
           />
         </div>
-        <Card cardHeight={'35%'} content={
+        <Card content={
+          user.role === "Assigner" ? (
           <div style={{padding: '1rem', boxSizing: 'border-box'}}>
             <div className="content text">Recent Tasks</div>
             <table className="text full">
@@ -106,10 +106,41 @@ export const DashboardWidget = ({tasks, users}) => {
                 ))}
               </tbody>
             </table>
-          </div>
-        }/>
-        <Card cardHeight={'35%'} content={
+          </div>) : (
           <div style={{padding: '1rem', boxSizing: 'border-box'}}>
+            <div className="content text">New Pending Tasks</div>
+            <table className="text full">
+              <thead>
+                <tr>
+                  <th style={{flex: '1'}}>No.</th>
+                  <th style={{flex: '2'}}>Task</th>
+                  <th style={{flex: '2'}}>Assigner</th>
+                  <th style={{flex: '3'}}>Description</th>
+                  <th style={{flex: '2'}}>Date Created</th>
+                  <th style={{flex: '1', textAlign: 'center'}}>Status</th>
+                  <th style={{flex: '1', textAlign: 'center'}}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').slice(-4).reverse().map((task, index) => (
+                  <tr key={index}>
+                    <td style={{flex: '1'}}>{index+1}</td>
+                    <td style={{flex: '2'}}>{task.task}</td>
+                    <td style={{flex: '2'}}>{users.find(user => user.id === task.assigner).name}</td>
+                    <td style={{flex: '3'}}>{task.details.length > 35 ? task.details.substring(0, 35) + '...' : task.details}</td>
+                    <td style={{flex: '2'}}>{task.created}</td>
+                    <td style={{flex: '1', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
+                      <div className={task.status + ' status'}>{task.status}</div>
+                    </td>
+                    <td style={{flex: '1', paddingTop: '.3rem', paddingBottom: '.3rem'}}><div className='startBtn'>Start</div></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>)
+        }/>
+        <Card content={
+         user.role === "Assigner" ? (<div style={{padding: '1rem', boxSizing: 'border-box'}}>
             <div className="content text">Assignees</div>
             <table className="text full">
               <thead>
@@ -137,7 +168,36 @@ export const DashboardWidget = ({tasks, users}) => {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div>) : (
+          <div style={{padding: '1rem', boxSizing: 'border-box'}}>
+            <div className="content text">My Tasks</div>
+            <table className="text full">
+              <thead>
+                <tr>
+                  <th style={{flex: '1'}}>No.</th>
+                  <th style={{flex: '2'}}>Task</th>
+                  <th style={{flex: '4'}}>Details</th>
+                  <th style={{flex: '2'}}>Date Created</th>
+                  <th style={{flex: '2', textAlign: 'center'}}>Status</th>
+                  <th style={{flex: '1', textAlign: 'center'}}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.filter((task) => (task.assignee === user.id && task.status != 'Pending')).reverse().splice(0, 4).map((task, index) => (
+                  <tr key={index}>
+                    <td style={{flex: '1'}}>{index+1}</td>
+                    <td style={{flex: '2'}}>{task.task}</td>
+                    <td style={{flex: '4'}}>{task.details.length > 35 ? task.details.substring(0, 55) + '...' : task.details}</td>
+                    <td style={{flex: '2'}}>{task.created}</td>
+                    <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
+                      <div className={task.status + ' status'}>{task.status}</div>
+                    </td>
+                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}>View</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>)
         }/>
         <div ref={modalRef} className='overlay centerY' style={{display: "none"}}>
             <NewTaskModal closeModal={closeModal} tasks={tasks} users={users}/>
@@ -148,5 +208,6 @@ export const DashboardWidget = ({tasks, users}) => {
 
 DashboardWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
-  users: PropTypes.arrayOf(PropTypes.object)
+  users: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.object
 };

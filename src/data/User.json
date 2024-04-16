@@ -2,4 +2,6 @@
 {"id": "123457", "role":"Assignee", "name": "Neil Pagara", "email": "neilPagara@gmail.com", "password": "test123", "department": "Shared Services"},
 {"id": "123458", "role":"Assignee", "name": "Christian Flores", "email": "christianFlores@gmail.com", "password": "test123", "department": "Intern"},
 {"id": "123459", "role":"Assignee", "name": "Claudio Daruca", "email": "claudioDaruca@gmail.com", "password": "test123", "department": "SRE"},
-{"id": "123460", "role":"Assigner", "name": "Mariene Bernasor", "email": "marieneBernasor@gmail.com", "password": "test123", "department": "R&D"}]
+{"id": "123460", "role":"Assigner", "name": "Mariene Bernasor", "email": "marieneBernasor@gmail.com", "password": "test123", "department": "Shared Services"},
+{"id": "123462", "role":"Assigner", "name": "Ritzi Lontoc", "email": "ritziLontoc@gmail.com", "password": "test123", "department": "R&D"},
+{"id": "123463", "role":"Assigner", "name": "Spencer So", "email": "spencerSo@gmail.com", "password": "test123", "department": "SRE"}]

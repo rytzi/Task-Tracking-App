@@ -81,11 +81,11 @@ const SelectedBody = ({select, user}) => {
   switch (select) {
     case 'Dashboard':
       return (
-        <DashboardWidget tasks={taskMap} users={userMap}/>       
+        <DashboardWidget tasks={taskMap} users={userMap} user={user}/>       
       );
     case 'AllTasks':
       return (
-        <AllTasksWidget tasks={taskMap} users={userMap}/>     
+        <AllTasksWidget tasks={taskMap} users={userMap} user={user}/>     
       );
     case 'MyTasks':
       return (
