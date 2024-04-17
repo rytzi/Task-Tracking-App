@@ -36,6 +36,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .signupForm {
@@ -154,4 +155,15 @@
     background-color: var(--primary-color);
     color: black;
     height: 3rem;
+}
+
+.welcome {
+  animation: punch 2s infinite;
+}
+
+.animateContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

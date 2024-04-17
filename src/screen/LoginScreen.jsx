@@ -5,16 +5,18 @@ import { SignupWidget } from '../widgets/SignupWidget';
 import PropTypes from 'prop-types'
 import '../style/Login.css';
 
-export const LoginScreen = ({ setIsAuthenticated, setUser, users}) => {
+export const LoginScreen = ({ setIsAuthenticated, setUser, users, updateUserData}) => {
   const [mode, setMode] = useState('login');
 
   const handleLogin = (email, password) => {
-    if (users.find(user => user.email === email).password === password){
-      setIsAuthenticated(true);
-      setUser(users.find(user => user.email === email))
-    } else {
-      console.log("wrong credentials")
-    }
+      const user = users.find(user => user.email === email);
+
+      if (user && user.password === password) {
+          setIsAuthenticated(true);
+          setUser(user);
+      } else {
+          console.log("Wrong credentials");
+      }
   };
 
   return (
@@ -22,7 +24,7 @@ export const LoginScreen = ({ setIsAuthenticated, setUser, users}) => {
       <LoginWidget handleLogin={handleLogin} />
       <GreetingWidget mode={mode} setMode={setMode} />
       <div className="signupForm centerY">
-        <SignupWidget setMode={setMode} departments={Array.from(new Set(users.map(user => user.department)))}/>
+        <SignupWidget setMode={setMode} users={users} updateUserData={updateUserData}/>
       </div>
     </div>
   );
@@ -31,5 +33,6 @@ export const LoginScreen = ({ setIsAuthenticated, setUser, users}) => {
 LoginScreen.propTypes = {
   setIsAuthenticated: PropTypes.func,
   setUser: PropTypes.func,
-  users: PropTypes.arrayOf(PropTypes.object)
+  users: PropTypes.arrayOf(PropTypes.object),
+  updateUserData: PropTypes.func
 }

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const ThemeContext = createContext(null);
 
-export const SignupWidget = ({departments, setMode}) => {
+export const SignupWidget = ({users, setMode, updateUserData}) => {
     const [role, setRole] = useState("");
     const [step, setStep] = useState(0);
 
@@ -56,7 +56,7 @@ export const SignupWidget = ({departments, setMode}) => {
                 break;
             default:
                 if (pass1 === pass2) {
-                    console.log(newUser);
+                    updateUserData([...users, newUser]);
                     setStep(step + 1);
                 } else {
                     errors.push("Passwords do not match.");
@@ -71,15 +71,28 @@ export const SignupWidget = ({departments, setMode}) => {
     };
 
     useEffect(() => {
+        let userID;
+
+        const isIdUnique = (userID) => {
+            if (users && Array.isArray(users)) {
+                return users.filter(user => user.id === userID).length === 0;
+            }
+            return false;
+        };
+
+        do {
+            userID = Math.floor(100000 + Math.random() * 900000).toString();
+        } while (!isIdUnique(userID));
+
         setNewUser({
-            id: "123463",
-            role: role,
+            id: userID,
+            role: role.charAt(0).toUpperCase() + role.slice(1).toLowerCase(),
             name: fname + " " + lname,
             email: email,
             password: pass1,
             department: dept
         });
-    }, [dept, email, fname, lname, pass1, role]);
+    }, [dept, email, fname, lname, pass1, role, users]);
 
     if (role != "") {
         return (
@@ -155,7 +168,7 @@ export const SignupWidget = ({departments, setMode}) => {
                             <div className="inline text">
                                 <select value={dept} className="signUpDropdown" onChange={(e) => {setDept(e.target.value)}}>
                                     <option value="placeholder" disabled>Select Department</option>
-                                    {departments.map((department, index) => (
+                                    {Array.from(new Set(users.map(user => user.department))).map((department, index) => (
                                                 <option key={index} value={department}>{department}</option>
                                             )
                                         )
@@ -215,6 +228,13 @@ export const SignupWidget = ({departments, setMode}) => {
                                 />
                         </div>
                     </>)}
+                    {step === 3 && (
+                        <div style={{padding: '5rem'}}>
+                            <div className="welcome title text">Welcome to Task Tracker!</div>
+                            <div className="connection" style={{marginTop: '2rem', marginBottom: '2rem', boxSizing: 'border-box'}}/>
+                            <div className="text">Account Successfully Created!</div><br/>
+                            <div className="text">You may now log in to your account!</div>
+                        </div>)}
                     <div className="inline text" style={{justifyContent: "center"}}>
                         {step > 0 && step < 3 && (<div className="text previous button wide" type="submit" onClick={()=>{setStep(step - 1)}}>Previous</div>)}
                         {3 > step ? (<div className="text button wide" type="submit" onClick={()=>{
@@ -248,8 +268,9 @@ export const SignupWidget = ({departments, setMode}) => {
 };
 
 SignupWidget.propTypes = {
-  departments: PropTypes.array,
-  setMode: PropTypes.func
+  users: PropTypes.arrayOf(PropTypes.object),
+  setMode: PropTypes.func,
+  updateUserData: PropTypes.func
 }
 
 const RoleSelect = () => {
