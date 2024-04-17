@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoginScreen } from './screen/LoginScreen.jsx';
 import { Body } from './screen/Body.jsx';
-import './GlobalHelpers.jsx'
+import taskJSON from './data/Task.json';
+import userJSON from './data/User.json';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userJSON));
+    localStorage.setItem('taskData', JSON.stringify(taskJSON));
+  }, []);
 
   const [userData, setUserData] = useState(() => {
     const userData = localStorage.getItem('userData');

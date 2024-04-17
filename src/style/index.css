@@ -30,6 +30,19 @@ svg, .text {
   font-family: 'DM Sans', 'Exalted', 'Protofo', sans-serif;
 }
 
+select {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+option {
+  box-sizing: border-box;
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+
 .button {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);

@@ -104,7 +104,7 @@ export const PendingTasksWidget = ({tasks, users, user}) => {
                 <th style={{flex: '4'}}>Details</th>
                 <th style={{flex: '2'}}>Date Created</th>
                 <th style={{flex: '2'}}>Assigner</th>
-                <th style={{flex: '2', textAlign: 'center'}}>Action</th>
+                <th style={{flex: '1', textAlign: 'center'}}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -115,10 +115,7 @@ export const PendingTasksWidget = ({tasks, users, user}) => {
                   <td style={{flex: '4'}}>{task.details}</td>
                   <td style={{flex: '2'}}>{task.created}</td>
                   <td style={{flex: '2'}}>{users.find(user => user.id === task.assigner).name}</td>
-                  <td style={{display: 'flex', justifyContent: 'space-around', flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
-                    <div className={'Accept status'}>Accept</div>
-                    <div className={'Decline status'}>Decline</div>
-                  </td>
+                  <td style={{flex: '1', paddingTop: '.3rem', paddingBottom: '.3rem'}}><div className='startBtn'>Start</div></td>
                 </tr>
               ))}
             </tbody>

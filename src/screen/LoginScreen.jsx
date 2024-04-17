@@ -19,10 +19,10 @@ export const LoginScreen = ({ setIsAuthenticated, setUser, users}) => {
 
   return (
     <div className="loginScreen">
-      <LoginWidget mode={mode} handleLogin={handleLogin} />
+      <LoginWidget handleLogin={handleLogin} />
       <GreetingWidget mode={mode} setMode={setMode} />
       <div className="signupForm centerY">
-        <SignupWidget mode={mode} />
+        <SignupWidget setMode={setMode} departments={Array.from(new Set(users.map(user => user.department)))}/>
       </div>
     </div>
   );
