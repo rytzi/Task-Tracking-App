@@ -94,7 +94,7 @@ const SelectedBody = ({select, user, users, tasks, updateTasksData}) => {
       );
     case 'PendingTasks':
       return (
-        <PendingTasksWidget tasks={tasks} users={users} user={user}/>     
+        <PendingTasksWidget tasks={tasks} users={users} user={user} updateTasksData={updateTasksData}/>     
       );
     case 'Employees':
       return (

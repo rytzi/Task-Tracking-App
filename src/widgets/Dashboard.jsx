@@ -3,6 +3,7 @@ import { Card } from "../widgets/Card"
 import { AddNewTask, Completed, InProgress, Message, Pending} from '../assets/Icons';
 import { useRef } from 'react';
 import { NewTaskModal } from './NewTask';
+import { Done } from '../assets/Graphics';
 
 export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
     const modalRef = useRef();
@@ -78,7 +79,9 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
           user.role === "Assigner" ? (
           <div style={{padding: '1rem', boxSizing: 'border-box'}}>
             <div className="content text">Recent Tasks</div>
-            <table className="text full">
+            {tasks.filter((task) => task.assignee == user.id || task.assigner == user.id).length === 0 ? (
+                <div className='noData'><Done/>No Tasks Found</div>
+              ) : (<table className="text full">
               <thead>
                 <tr>
                   <th style={{flex: '1'}}>No.</th>
@@ -104,39 +107,44 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                     <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}>View</td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
+                </tbody>
+            </table>)}
           </div>) : (
           <div style={{padding: '1rem', boxSizing: 'border-box'}}>
             <div className="content text">New Pending Tasks</div>
-            <table className="text full">
-              <thead>
-                <tr>
-                  <th style={{flex: '1'}}>No.</th>
-                  <th style={{flex: '2'}}>Task</th>
-                  <th style={{flex: '2'}}>Assigner</th>
-                  <th style={{flex: '3'}}>Description</th>
-                  <th style={{flex: '2'}}>Date Created</th>
-                  <th style={{flex: '1', textAlign: 'center'}}>Status</th>
-                  <th style={{flex: '1', textAlign: 'center'}}>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').slice(-4).reverse().map((task, index) => (
-                  <tr key={index}>
-                    <td style={{flex: '1'}}>{index+1}</td>
-                    <td style={{flex: '2'}}>{task.task}</td>
-                    <td style={{flex: '2'}}>{users.find(user => user.id === task.assigner).name}</td>
-                    <td style={{flex: '3'}}>{task.details.length > 35 ? task.details.substring(0, 35) + '...' : task.details}</td>
-                    <td style={{flex: '2'}}>{task.created}</td>
-                    <td style={{flex: '1', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
-                      <div className={task.status + ' status'}>{task.status}</div>
-                    </td>
-                    <td style={{flex: '1', paddingTop: '.3rem', paddingBottom: '.3rem'}}><div className='startBtn'>Start</div></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').length === 0 ? (
+                <div className='noData'><Done/>No Pending Tasks</div>
+              ) : (
+                <table className="text full">
+                  <thead>
+                    <tr>
+                      <th style={{flex: '1'}}>No.</th>
+                      <th style={{flex: '2'}}>Task</th>
+                      <th style={{flex: '2'}}>Assigner</th>
+                      <th style={{flex: '3'}}>Description</th>
+                      <th style={{flex: '2'}}>Date Created</th>
+                      <th style={{flex: '1', textAlign: 'center'}}>Status</th>
+                      <th style={{flex: '1', textAlign: 'center'}}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').slice(-4).reverse().map((task, index) => (
+                      <tr key={index}>
+                        <td style={{flex: '1'}}>{index+1}</td>
+                        <td style={{flex: '2'}}>{task.task}</td>
+                        <td style={{flex: '2'}}>{users.find(user => user.id === task.assigner).name}</td>
+                        <td style={{flex: '3'}}>{task.details.length > 35 ? task.details.substring(0, 35) + '...' : task.details}</td>
+                        <td style={{flex: '2'}}>{task.created}</td>
+                        <td style={{flex: '1', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
+                          <div className={task.status + ' status'}>{task.status}</div>
+                        </td>
+                        <td style={{flex: '1', paddingTop: '.3rem', paddingBottom: '.3rem'}}>
+                          <div className='startBtn' onClick={() => {task.status = 'In Progress'; updateTasksData([...tasks])}}>Start</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>)}
           </div>)
         }/>
         <Card content={
@@ -171,7 +179,9 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
           </div>) : (
           <div style={{padding: '1rem', boxSizing: 'border-box'}}>
             <div className="content text">My Tasks</div>
-            <table className="text full">
+            {tasks.filter((task) => (task.assignee === user.id && task.status != 'Pending')).length === 0 ? (
+                <div className='noData'><Done/>No Tasks Found</div>
+              ) : (<table className="text full">
               <thead>
                 <tr>
                   <th style={{flex: '1'}}>No.</th>
@@ -196,7 +206,7 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table>)}
           </div>)
         }/>
         <div ref={modalRef} className='overlay centerY' style={{display: "none"}}>
