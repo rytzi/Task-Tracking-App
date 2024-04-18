@@ -72,10 +72,13 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData, setTaskVie
             }
           content={
           user.role === "Assigner" ? (
-          <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
-            {tasks.filter((task) => task.assignee == user.id || task.assigner == user.id).length === 0 ? (
-                <div className='noData'><Done/>No Tasks Found</div>
-              ) : (<table className="text full">
+          tasks.filter((task) => task.assignee == user.id || task.assigner == user.id).length === 0 ? (
+              <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
+                  <div className='noData'><Done/>No Tasks Found</div>
+              </div>
+              ) : (
+              <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box'}}>
+              <table className="text full">
               <thead>
                 <tr>
                   <th style={{flex: '1'}}>No.</th>
@@ -103,12 +106,14 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData, setTaskVie
                   </tr>
                 ))}
                 </tbody>
-            </table>)}
-          </div>) : (
-          <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
-            {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').length === 0 ? (
-                <div className='noData'><Done/>No Pending Tasks</div>
+            </table>
+          </div>)) : (
+            tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').length === 0 ? (
+                <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
+                  <div className='noData'><Done/>No Pending Tasks</div>
+                </div>
               ) : (
+                <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box'}}>
                 <table className="text full">
                   <thead>
                     <tr>
@@ -138,8 +143,8 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData, setTaskVie
                       </tr>
                     ))}
                   </tbody>
-                </table>)}
-          </div>)
+                </table>
+          </div>))
         }/>
         <Card 
         title={
