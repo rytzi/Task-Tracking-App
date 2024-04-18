@@ -1,28 +1,16 @@
 import PropTypes from 'prop-types'
 import { Card } from "../widgets/Card"
 import { AddNewTask, Completed, InProgress, Message, Pending} from '../assets/Icons';
-import { useRef } from 'react';
-import { NewTaskModal } from './NewTask';
 import { Done } from '../assets/Graphics';
 
-export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
-    const modalRef = useRef();
-
-    const openModal = () => {
-      modalRef.current.style.display = 'flex';
-    };
-
-    const closeModal = () => {
-      modalRef.current.style.display = 'none';
-    };
-
+export const DashboardWidget = ({tasks, users, user, updateTasksData, setTaskView, openModal}) => {
     return(
       <div className='dashboardContainer'>
         <div className='subtitle text'>Dashboard</div>
         <div className='cards'>
           {user.role === "Assigner" && (
             <Card
-              onClick={openModal}
+              onClick={() => {setTaskView({mode: 'new'}); openModal()}}
               className='addNewTask'
               cardWidth={"45rem"}
               content={
@@ -30,7 +18,7 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                     <div className='icon centerY' style={{width: '30%', padding: '2rem'}}>
                       <AddNewTask/>
                     </div>
-                    <div className='text option'>Add New Task</div>
+                    <div style={{textAlign: 'center', fontSize: 'larger', alignSelf: 'center', flex: 5}} className='text'>Add New Task</div>
                   </div>
                 }
             />)
@@ -75,10 +63,16 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
             }
           />
         </div>
-        <Card content={
+        <Card 
+          title={
+              user.role === "Assigner" ? (
+              <div className="content text">Recent Tasks</div>
+              ) : (
+              <div className="content text">New Pending Tasks</div>)
+            }
+          content={
           user.role === "Assigner" ? (
-          <div style={{padding: '1rem', boxSizing: 'border-box'}}>
-            <div className="content text">Recent Tasks</div>
+          <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
             {tasks.filter((task) => task.assignee == user.id || task.assigner == user.id).length === 0 ? (
                 <div className='noData'><Done/>No Tasks Found</div>
               ) : (<table className="text full">
@@ -104,14 +98,14 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                     <td style={{flex: '1', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
                       <div className={task.status + ' status'}>{task.status}</div>
                     </td>
-                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}>View</td>
+                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}
+                    onClick={() => {setTaskView({mode: 'view', view: task}); openModal()}}>View</td>
                   </tr>
                 ))}
                 </tbody>
             </table>)}
           </div>) : (
-          <div style={{padding: '1rem', boxSizing: 'border-box'}}>
-            <div className="content text">New Pending Tasks</div>
+          <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
             {tasks.filter((task) => task.assignee === user.id && task.status === 'Pending').length === 0 ? (
                 <div className='noData'><Done/>No Pending Tasks</div>
               ) : (
@@ -147,9 +141,15 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                 </table>)}
           </div>)
         }/>
-        <Card content={
-         user.role === "Assigner" ? (<div style={{padding: '1rem', boxSizing: 'border-box'}}>
-            <div className="content text">Assignees</div>
+        <Card 
+        title={
+              user.role === "Assigner" ? (
+                <div className="content text">Assignees</div>
+              ) : (
+                <div className="content text">My Tasks</div>)
+            }
+        content={
+         user.role === "Assigner" ? (<div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
             <table className="text full">
               <thead>
                 <tr>
@@ -177,8 +177,7 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
               </tbody>
             </table>
           </div>) : (
-          <div style={{padding: '1rem', boxSizing: 'border-box'}}>
-            <div className="content text">My Tasks</div>
+          <div style={{padding: '1rem', paddingTop: '0', boxSizing: 'border-box', alignContent: 'center'}}>
             {tasks.filter((task) => (task.assignee === user.id && task.status != 'Pending')).length === 0 ? (
                 <div className='noData'><Done/>No Tasks Found</div>
               ) : (<table className="text full">
@@ -202,16 +201,14 @@ export const DashboardWidget = ({tasks, users, user, updateTasksData}) => {
                     <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
                       <div className={task.status + ' status'}>{task.status}</div>
                     </td>
-                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}>View</td>
+                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}
+                    onClick={() => {setTaskView({mode: 'view', view: task}); openModal()}}>View</td>
                   </tr>
                 ))}
               </tbody>
             </table>)}
           </div>)
         }/>
-        <div ref={modalRef} className='overlay centerY' style={{display: "none"}}>
-            <NewTaskModal closeModal={closeModal} tasks={tasks} users={users} user={user} updateTasksData={updateTasksData}/>
-        </div>
       </div>
     )
 }
@@ -220,5 +217,7 @@ DashboardWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
   users: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.object,
-  updateTasksData: PropTypes.func
+  updateTasksData: PropTypes.func,
+  setTaskView: PropTypes.func,
+  openModal: PropTypes.func
 };

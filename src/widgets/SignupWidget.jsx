@@ -311,12 +311,12 @@ const RoleSelect = () => {
 
 const AssignerCardContent = 
         <>
-            <Assigner/>
+            <div style={{flex: "3"}}><Assigner/></div>
             <p className="contained subtitle text">Assigner</p>
         </>
 
 const AssigneeCardContent = 
         <>
-            <Assignee/>
+            <div style={{flex: "3"}}><Assignee/></div>
             <div className="contained subtitle text">Assignee</div>
         </>

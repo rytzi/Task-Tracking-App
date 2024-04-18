@@ -6,7 +6,7 @@ import userJSON from './data/User.json';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('userData', JSON.stringify(userJSON));

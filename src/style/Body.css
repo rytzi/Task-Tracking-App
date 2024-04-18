@@ -94,6 +94,7 @@
 }
 
 .addNewTask {
+    cursor: pointer;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     display: flex;
@@ -101,6 +102,9 @@
     align-content: space-around;
     justify-content: space-around;
     align-items: center;
+    &:hover{
+        background-color: rgb(33, 41, 60, 0.7);
+    }
 }
 
 .dashboardCards {  
@@ -202,6 +206,18 @@ td {
 .Completed {
     background-color: rgba(100, 218, 105, 0.5);
     border-color: rgba(100, 218, 105, 1);
+}
+
+.fit.text.Pending{
+    color: rgba(51, 173, 209, 1);
+}
+
+.fit.text.Progress{
+    color: rgba(246, 145, 52, 1);
+}
+
+.fit.text.Completed{
+    color: rgba(100, 218, 105, 1);
 }
 
 .overlay {
@@ -321,4 +337,29 @@ input, textarea {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     border-radius: 5px;
+}
+
+.taskDetails {
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.update {
+    position: absolute;
+    bottom: 10px;
+    width: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.edit {
+    display: flex;
+    gap: 1rem;
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { Card } from "./Card"
 import { Done } from '../assets/Graphics';
 
-export const AllTasksWidget = ({tasks, users, user}) => {
+export const AllTasksWidget = ({tasks, users, user, setTaskView, openModal}) => {
     return(
       <div className='tasksContainer'>
         <div className='subtitle text'>All Tasks</div>
@@ -20,6 +20,7 @@ export const AllTasksWidget = ({tasks, users, user}) => {
                   <th style={{flex: '2'}}>Department</th>
                   <th style={{flex: '2'}}>Date Created</th>
                   <th style={{flex: '2', textAlign: 'center'}}>Status</th>
+                  <th style={{flex: '1', textAlign: 'center'}}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,7 +34,9 @@ export const AllTasksWidget = ({tasks, users, user}) => {
                     <td style={{flex: '2'}}>{task.created}</td>
                     <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
                       <div className={task.status + ' status'}>{task.status}</div>
-                    </td>
+                    </td> 
+                    <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}
+                    onClick={() => {setTaskView({mode: 'view', view: task}); openModal()}}>View</td>
                   </tr>
                 ))}
               </tbody>
@@ -47,10 +50,12 @@ export const AllTasksWidget = ({tasks, users, user}) => {
 AllTasksWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
   users: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.object
+  user: PropTypes.object,
+  setTaskView: PropTypes.func,
+  openModal: PropTypes.func
 };
 
-export const MyTasksWidget = ({tasks, user}) => {
+export const MyTasksWidget = ({tasks, user, setTaskView, openModal}) => {
   const myTasks = tasks.filter((task) => (task.assignee === user.id));
   return(
     <div className='tasksContainer'>
@@ -67,6 +72,7 @@ export const MyTasksWidget = ({tasks, user}) => {
                 <th style={{flex: '4'}}>Details</th>
                 <th style={{flex: '2'}}>Date Created</th>
                 <th style={{flex: '2', textAlign: 'center'}}>Status</th>
+                <th style={{flex: '1', textAlign: 'center'}}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -79,6 +85,8 @@ export const MyTasksWidget = ({tasks, user}) => {
                   <td style={{flex: '2', textAlign: 'center', paddingTop: '0px', paddingBottom: '0px'}}>
                     <div className={task.status + ' status'}>{task.status}</div>
                   </td>
+                  <td style={{flex: '1', textAlign: 'center', color: 'grey', cursor: 'pointer'}}
+                  onClick={() => {setTaskView({mode: 'view', view: task}); openModal()}}>View</td>
                 </tr>
               ))}
             </tbody>
@@ -91,7 +99,9 @@ export const MyTasksWidget = ({tasks, user}) => {
 
 MyTasksWidget.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object),
-  user: PropTypes.object
+  user: PropTypes.object,
+  setTaskView: PropTypes.func,
+  openModal: PropTypes.func
 };
 
 export const PendingTasksWidget = ({tasks, users, user, updateTasksData}) => {

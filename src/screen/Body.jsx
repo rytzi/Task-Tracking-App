@@ -1,19 +1,35 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Dashboard, Employees, Logout, PendingTasks, Tasks } from '../assets/Icons';
 import { DashboardWidget } from '../widgets/Dashboard';
 import { AllTasksWidget, MyTasksWidget, PendingTasksWidget } from '../widgets/Tasks';
 import { EmployeesWidget } from '../widgets/Employees';
+import { TaskFormModal } from '../widgets/TaskForm';
+import { ViewTaskModal } from '../widgets/TaskView';
 import '../style/Body.css';
 
 export const Body = ({ setIsAuthenticated, user, users, tasks, updateTasksData}) => {
   const [selectedBody, setSelectedBody] = useState('Dashboard');
+  const [toEdit, setToEdit] = useState(null);
+
   const handleSidebar = (selected) => {
     setSelectedBody(selected);
   }
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+  };
+
+  
+  const modalRef = useRef();
+  const [taskView, setTaskView] = useState([]);
+
+  const openModal = () => {
+    modalRef.current.style.display = 'flex';
+  };
+
+  const closeModal = () => {
+    modalRef.current.style.display = 'none';
   };
 
   return (
@@ -62,8 +78,15 @@ export const Body = ({ setIsAuthenticated, user, users, tasks, updateTasksData})
               <div className='title text'>Welcome Back, {user.name.split(" ")[0]} 🤟</div>
             </div>
             <div className='selected'>
-              <SelectedBody select={selectedBody} user={user} users={users} tasks={tasks} updateTasksData={updateTasksData}/>
+              <SelectedBody select={selectedBody} user={user} users={users} tasks={tasks} updateTasksData={updateTasksData} taskView={taskView} setTaskView={setTaskView} openModal={openModal} closeModal={closeModal}/>
             </div>
+        </div>
+        <div ref={modalRef} className='overlay centerY' style={{display: "none"}}>
+          {taskView.mode == 'new' ? (
+            <TaskFormModal closeModal={closeModal} tasks={tasks} users={users} user={user} updateTasksData={updateTasksData} ifEdit={toEdit}  setToEdit={setToEdit}/>
+          ) : (
+            <ViewTaskModal closeModal={closeModal} tasks={tasks} users={users} user={user} view={taskView.view} updateTasksData={updateTasksData} setTaskView={setTaskView} setToEdit={setToEdit}/>
+          )}
         </div>
     </div>
   );
@@ -78,19 +101,19 @@ Body.propTypes = {
 }
 
 
-const SelectedBody = ({select, user, users, tasks, updateTasksData}) => {
+const SelectedBody = ({select, user, users, tasks, updateTasksData, setTaskView, openModal}) => {
   switch (select) {
     case 'Dashboard':
       return (
-        <DashboardWidget tasks={tasks} users={users} user={user} updateTasksData={updateTasksData}/>       
+        <DashboardWidget tasks={tasks} users={users} user={user} updateTasksData={updateTasksData} setTaskView={setTaskView} openModal={openModal}/>       
       );
     case 'AllTasks':
       return (
-        <AllTasksWidget tasks={tasks} users={users} user={user}/>     
+        <AllTasksWidget tasks={tasks} users={users} user={user} setTaskView={setTaskView} openModal={openModal}/>     
       );
     case 'MyTasks':
       return (
-        <MyTasksWidget tasks={tasks} users={users} user={user}/>     
+        <MyTasksWidget tasks={tasks} users={users} user={user} setTaskView={setTaskView} openModal={openModal}/>     
       );
     case 'PendingTasks':
       return (
@@ -109,5 +132,7 @@ SelectedBody.propTypes = {
   user: PropTypes.object,
   users: PropTypes.arrayOf(PropTypes.object),
   tasks: PropTypes.arrayOf(PropTypes.object),
-  updateTasksData: PropTypes.func
+  updateTasksData: PropTypes.func,
+  setTaskView: PropTypes.func,
+  openModal: PropTypes.func
 }

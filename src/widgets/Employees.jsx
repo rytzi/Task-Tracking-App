@@ -16,20 +16,20 @@ export const EmployeesWidget = ({tasks, users, user}) => {
                   <th style={{flex: '2'}}>Name</th>
                   <th style={{flex: '2'}}>Email Address</th>
                   <th style={{flex: '1'}}>Department</th>
-                  <th style={{flex: '1', textAlign: 'center'}}>Tasks</th>
+                  <th style={{flex: '1', textAlign: 'center'}}>Pending Tasks</th>
                   <th style={{flex: '1', textAlign: 'center'}}>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {users.filter((employee) => employee.id != user.id).map((user, index) => (
+                {users.filter((employee) => employee.id != user.id).map((employee, index) => (
                   <tr key={index}>
-                    <td style={{flex: '1'}}>{user.id}</td>
-                    <td style={{flex: '1'}}>{user.role}</td>
-                    <td style={{flex: '2'}}>{user.name}</td>
-                    <td style={{flex: '2'}}>{user.email}</td>
-                    <td style={{flex: '1'}}>{user.department}</td>
+                    <td style={{flex: '1'}}>{employee.id}</td>
+                    <td style={{flex: '1'}}>{employee.role}</td>
+                    <td style={{flex: '2'}}>{employee.name}</td>
+                    <td style={{flex: '2'}}>{employee.email}</td>
+                    <td style={{flex: '1'}}>{employee.department}</td>
                     <td style={{flex: '1', textAlign: 'center'}}>
-                      {tasks.filter(task => task.status === "In Progress" & task.assignee === user.id).length}
+                      {tasks.filter(task => task.status === "In Progress" && task.assignee === employee.id && task.assigner === user.id).length}
                     </td>
                     <td style={{flex: '1', textAlign: 'center'}}><Message/></td>
                   </tr>

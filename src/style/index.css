@@ -86,8 +86,18 @@ option {
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  display: inline-grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  align-content: center;
+}
+
+.cardTitle {
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  padding-bottom: 0;
 }
 
 .centerY {
@@ -98,7 +108,8 @@ option {
 
 .noData {
   padding: 1rem;
-  width: 10%;
+  width: 12%;
+  height: auto;
   margin: auto;
   text-align: center;
 }
